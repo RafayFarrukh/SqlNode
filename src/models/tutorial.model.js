@@ -1,29 +1,46 @@
-// const { SequelizeMethod } = require("sequelize/types/utils");
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize, Sequelize) => {
   const Tutorial = sequelize.define("tutorial", {
-    // data: {
-      
-    //   type: Sequelize.OBJECT
+    // id: {
+    //   type: Sequelize.UUID,
+    //   primaryKey: true
     // },
     data: {
-      type: Sequelize.STRING,
-    
+     type: Sequelize.CHAR(4000)
     },
-    // data: { 
-    //   type: Sequelize.STRING,
-    //   // ref: 'users'
-    // },
-  
-    password: {
-      type: Sequelize.STRING
+    email: {
+      type: DataTypes.STRING
+
     },
-    status: {
-      type: Sequelize.BOOLEAN
+    password:{
+      type: DataTypes.STRING
+
     },
-    role: { 
-      type: Sequelize.BOOLEAN
-    }
+    status:{
+      type: DataTypes.INTEGER
+
+    },
+    role:{
+      type: DataTypes.INTEGER
+
+    }, 
+
+    approvedAt:{
+      type: DataTypes.DATE
+
+
+    },
+    createdAt:{
+      type: DataTypes.DATE
+
+    },
+    approvedBy:{
+      type: DataTypes.STRING
+
+
+    }, 
+// updatedAt: false,
   });
 
   return Tutorial;

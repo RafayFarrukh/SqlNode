@@ -2,7 +2,7 @@ const db = require("../../models");
 const Tutorial = db.tutorials;
 const excelToJson=require('convert-excel-to-json')
 const readXlsxFile = require("read-excel-file/node");
-// const excel = require("exceljs");
+const excel = require("exceljs");
 
 var path = require('path');
 var Excel = require('exceljs');
@@ -33,9 +33,10 @@ const upload = async (req, res) => {
       rows.shift();
 
       let tutorials = [];
-
+    
+   
       rows.forEach((row) => {
-        let tutorial = {
+        let data1 = {
           name: row[1],
           email: row[11],
           mobile: row[12],
@@ -53,13 +54,32 @@ const upload = async (req, res) => {
           yoapgd: row[21],
           HosNameCity: row[13],
         };
+        // data1=JSON.stringify(data1)
+        // console.log(data1);
+        let tutorial={
+          data:JSON.stringify(data1),
+          // data:"hhh",
+          email:row[11],
+          password:"hhhhhhhhhhhhhhhh",
+          status:1,
+          role:1,
+          approvedAt: 2022-09-30 ,
+          approvedBy:"hii",
+          // createdAt:2022-09-30
+         
+        }
+        
   
       
-
+ 
        
         tutorials.push(tutorial)
-        console.log(tutorials);
-      });
+        // console.log(JSON.stringify(tutorial));
+        console.log((tutorial));
+        // console.log(JSON.stringify(data1));
+      }); 
+
+      
 
       Tutorial.bulkCreate(tutorials)
         .then(() => {
@@ -69,13 +89,15 @@ const upload = async (req, res) => {
         })
         .catch((error) => {
           res.status(500).send({ 
-            message: "Fail to import data into database!",
-            error: error.message,
+            message: "Fail to import data into database!",                                                                                                                                                                             
+            error: error
+            // error: error.name,
+            
           });
         });
     });
   } catch (error) {
-    console.log("error jsao "); 
+    console.log("error HAI "); 
     res.status(500).send({
       message: "Could not upload the file: " + req.file.originalname,
     });
@@ -92,50 +114,51 @@ const getTutorials = (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving tutorials.",
+          err,
       });
-    });
+    }); 
 };
 
 const download = (req, res) => {
-  Tutorial.findAll().then((objs) => {
-    let tutorials = [];
+  // Tutorial.findAll().then((objs) => { 
+  //   let tutorials = [];
 
-    objs.forEach((obj) => {
-      tutorials.push({
-        id: obj.id,
-        title: obj.title,
-        description: obj.description,
-        published: obj.published,
-      });
-    });
+  //   objs.forEach((obj) => {
+  //     tutorials.push({
+  //       id: obj.id,
+  //       // name: obj.name,
+  //       data: obj.data,
+  //       // mobile: obj.mobile,
+  //     });
+  //   });
 
-    let workbook = new excel.Workbook();
-    let worksheet = workbook.addWorksheet("Tutorials");
+  //   let workbook = new excel.Workbook();
+  //   let worksheet = workbook.addWorksheet("Tutorials");
 
-    worksheet.columns = [
-      { header: "Id", key: "id", width: 5 },
-      { header: "data", key: "data", width: 25 },
-      // { header: "email", key: "email", width: 25 },
-      // { header: "password", key: "password", width: 10 },
-      // { header: "status", key: "status", width: 10 },
-      // { header: "role", key: "role", width: 10 },
-    ];
+  //   worksheet.columns = [
+  //     { header: "id", key: "id", width: 5 },
+  //     { header: "data", key: "data", width: 25 },
+  //     { header: "email", key: "email", width: 25 },
+  //     { header: "password", key: "password", width: 10 },
+  //     { header: "status", key: "status", width: 10 },
+  //     { header: "ROLE", key: "ROLE", width: 10 },
+  //   ];
 
-    // Add Array Rows
-    worksheet.addRows(tutorials);
-    res.setHeader(
-      "Content-Type",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    );
-    res.setHeader(
-      "Content-Disposition",
-      "attachment; filename=" + "tutorials.xlsx"
-    );
+  //   // Add Array Rows
+  //   worksheet.addRows(tutorials);
+  //   res.setHeader(
+  //     "Content-Type",
+  //     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  //   );
+  //   res.setHeader(
+  //     "Content-Disposition",
+  //     "attachment; filename=" + "tutorials.xlsx"
+  //   );
 
-    return workbook.xlsx.write(res).then(function () {
-      res.status(200).end();
-    });
-  });
+  //   return workbook.xlsx.write(res).then(function () {
+  //     res.status(200).end();
+  //   });
+  // });
 };
 
 module.exports = {
