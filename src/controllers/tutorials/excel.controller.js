@@ -49,7 +49,7 @@ const upload = async (req, res) => {
           speciality: row[3],
           qualification: row[4],
           yearOfEntry: row[7],
-          transScript: row[16],
+          transScript: row[16],       
           SCFHSresponse: row[17],
           yoapgd: row[21],
           HosNameCity: row[13],
