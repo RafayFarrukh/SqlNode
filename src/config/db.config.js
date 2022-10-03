@@ -1,13 +1,7 @@
 module.exports = {
 
 
-  HOST: "pakdoctorsksa.com",
-  USER: "pdgksa",
-  PASSWORD: "50siJ67~e",
-  DB: "pdgksa",
-  dialect: "mssql",
- 
-
+//real db credentials
 
 
 //   HOST: "server",
