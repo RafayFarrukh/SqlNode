@@ -1,11 +1,12 @@
 const db = require("../../models");
-const Tutorial = db.tutorials;
+// const Tutorial = db.tutorials;
+const Tutorial = db.Users;
 const excelToJson=require('convert-excel-to-json')
 const readXlsxFile = require("read-excel-file/node");
-const excel = require("exceljs");
+// const excel = require("exceljs");
 
-var path = require('path');
-var Excel = require('exceljs');
+// var path = require('path');
+// var Excel = require('exceljs');
 
 
 
@@ -32,7 +33,7 @@ const upload = async (req, res) => {
     readXlsxFile(path).then((rows) => {
       rows.shift();
 
-      let tutorials = [];
+      let Users = [];
     
    
       rows.forEach((row) => {
@@ -60,11 +61,12 @@ const upload = async (req, res) => {
           data:JSON.stringify(data1),
           // data:"hhh",
           email:row[11],
-          password:"hhhhhhhhhhhhhhhh",
+          password:"$2a$10$CwTycUXWue0Thq9StjUM0ukM8yo5muA5ErcXojkz023gjwqfUpQe6",
           status:1,
-          role:1,
+         
           approvedAt: 2022-09-30 ,
-          approvedBy:"hii",
+          approvedBy:null,
+          role:1,
           // createdAt:2022-09-30
          
         }
@@ -73,7 +75,7 @@ const upload = async (req, res) => {
       
  
        
-        tutorials.push(tutorial)
+        Users.push(tutorial)
         // console.log(JSON.stringify(tutorial));
         console.log((tutorial));
         // console.log(JSON.stringify(data1));
@@ -81,7 +83,7 @@ const upload = async (req, res) => {
 
       
 
-      Tutorial.bulkCreate(tutorials)
+      Tutorial.bulkCreate(Users)
         .then(() => {
           res.status(200).send({
             message: "Uploaded the file successfully: " + req.file.originalname,

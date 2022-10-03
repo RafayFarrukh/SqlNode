@@ -1,13 +1,27 @@
 module.exports = {
-  HOST: "server",
-  USER: "intern",
-  PASSWORD: "Qwerty123!",
-  DB: "sql",
+
+
+  HOST: "pakdoctorsksa.com",
+  USER: "pdgksa",
+  PASSWORD: "50siJ67~e",
+  DB: "pdgksa",
   dialect: "mssql",
-  options: {
-    database: 'Sqldata',
-    trustServerCertificate: true
-},
+ 
+
+
+
+//   HOST: "server",
+//   USER: "intern",
+//   PASSWORD: "Qwerty123!",
+//   DB: "sql",
+//   dialect: "mssql",
+//   define: {
+//     updatedAt: false
+// },
+//   options: {
+//     database: 'Sqldata',
+//     trustServerCertificate: true
+// },
 
 
   pool: {
